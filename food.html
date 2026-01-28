@@ -1,0 +1,1246 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu | KLNC Kitchen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+       
+        :root {
+            --klnc-green: #2E5834;  
+            --klnc-gold: #F5C645;  
+            --klnc-soft: #fafafa;   
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--klnc-green); 
+            color: var(--klnc-soft);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--klnc-gold); 
+        }
+
+        .glow-text {
+            color: var(--klnc-gold) !important;
+            text-shadow: 0 0 15px rgba(245, 198, 69, 0.9), 0 0 30px rgba(245, 198, 69, 0.6);
+            letter-spacing: 2px;
+            border-right: 3px solid var(--klnc-gold); 
+            padding-right: 5px;
+            display: inline-block;
+        }
+
+        .signature-header-box {
+            position: relative;
+            background: linear-gradient(135deg, var(--klnc-green) 0%, #0d1f12 100%);
+            padding: 30px 20px; 
+            text-align: center;
+            border-top: 4px solid var(--klnc-gold);
+            border-bottom: 4px solid var(--klnc-gold);
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            margin-bottom: 60px;
+        }
+
+        .signature-header-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%);
+            animation: rotate-glow 10s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .signature-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes rotate-glow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            background: rgba(46, 88, 52, 0.98) !important; 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--klnc-gold);
+            padding: 10px 0;
+        }
+
+        .navbar-brand img {
+            height: 65px; 
+            border-radius: 50%;
+            border: 2px solid var(--klnc-gold);
+            transition: transform 0.5s ease;
+            margin-right: 15px; 
+        }
+        .navbar-brand img:hover { transform: rotate(360deg); }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.3rem; 
+            color: #ffffff; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px var(--klnc-gold); 
+            vertical-align: middle;
+            margin-right: 20px; 
+        }
+
+        .nav-link {
+            font-weight: 700;
+            color: var(--klnc-gold) !important;
+            font-size: 0.9rem; 
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .nav-link:hover { 
+            color: #fff !important; 
+            text-shadow: 0 0 10px var(--klnc-gold);
+        }
+
+        .btn-nav-cart {
+            background: var(--klnc-gold);
+            color: var(--klnc-green) !important;
+            border-radius: 50px;
+            padding: 6px 18px !important; 
+            font-weight: 800;
+            font-size: 0.75rem; 
+            box-shadow: 0 0 10px rgba(245, 198, 69, 0.3);
+            border: 2px solid var(--klnc-gold);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap; 
+        }
+        .btn-nav-cart:hover {
+            background: transparent;
+            color: var(--klnc-gold) !important;
+            box-shadow: 0 0 20px rgba(245, 198, 69, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn { 
+            margin: 5px; 
+            border-radius: 50px; 
+            padding: 10px 30px; 
+            border: 2px solid var(--klnc-gold); 
+            color: var(--klnc-gold); 
+            font-weight: 700;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active { 
+            background-color: var(--klnc-gold); 
+            color: var(--klnc-green); 
+            box-shadow: 0 0 20px rgba(245, 198, 69, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .menu-card { 
+            border: none; 
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--klnc-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+        
+        .menu-card:hover {
+            border-color: var(--klnc-gold);
+            box-shadow: 0 0 20px rgba(245, 198, 69, 0.4);
+        }
+
+        .menu-img { 
+            height: 220px; 
+            object-fit: cover;
+            border-bottom: 4px solid var(--klnc-green);
+            width: 100%;
+        }
+
+        .card-body { color: #333; }
+
+        .card-title {
+            color: var(--klnc-green);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .price-tag {
+            color: var(--klnc-green);
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        .btn-add-cart {
+            background-color: var(--klnc-green);
+            color: var(--klnc-gold);
+            width: 100%;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 15px;
+            padding: 12px;
+            border: 2px solid var(--klnc-green);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--klnc-gold);
+            color: var(--klnc-green);
+            border-color: var(--klnc-gold);
+            box-shadow: 0 0 20px var(--klnc-gold);
+        }
+
+        #floatingCart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        #floatingCart:hover { transform: scale(1.1); }
+
+        .cart-icon-container {
+            background: var(--klnc-gold); 
+            color: var(--klnc-green); 
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 0 25px rgba(245, 198, 69, 0.6);
+            border: 3px solid white;
+        }
+
+        .badge-counter {
+            position: absolute; top: -5px; right: -5px;
+            background: #ff0000; color: white;
+            font-size: 12px; width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid white; font-weight: bold;
+        }
+
+        .offcanvas {
+            background-color: var(--klnc-green); 
+            border-left: 2px solid var(--klnc-gold);
+            color: white;
+        }
+        .offcanvas-header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .offcanvas-title {
+            color: var(--klnc-gold);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .cart-item-row {
+            background: rgba(255,255,255,0.1); 
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--klnc-gold);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .cart-action-btn {
+            background: var(--klnc-gold); color: var(--klnc-green);
+            border-radius: 50%; width: 25px; height: 25px;
+            border: none; font-size: 12px; font-weight: bold;
+        }
+
+        .btn-modern-checkout {
+            background: var(--klnc-gold);
+            color: var(--klnc-green);
+            font-weight: 900;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            transition: 0.3s;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(245, 198, 69, 0.4);
+        }
+        .btn-modern-checkout:hover {
+            background: white;
+            color: var(--klnc-green);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: ripple-anim 0.6s linear;
+        }
+        @keyframes ripple-anim {
+            0% { width: 0px; height: 0px; opacity: 0.5; }
+            100% { width: 300px; height: 300px; opacity: 0; }
+        }
+        
+        @keyframes blink { 50% { border-color: transparent; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-4"> <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/knlc_logo.jpeg" alt="KLNC Logo">
+                <span class="brand-text d-none d-lg-block">KNLC KITCHEN & PATISSERIE</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="background-color: var(--klnc-gold); border-radius: 5px;"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="index.html">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link active mx-1 px-2" href="food.html">FOOD</a></li>
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="drinks.html">DRINKS</a></li>
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="promotion.html">PROMOTION</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="nav-link btn-nav-cart" href="cart.html">
+                            <i class="fas fa-receipt me-2"></i>REVIEW TRAY & PAY
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5" style="margin-top: 100px;"> 
+        
+        <div class="signature-header-box reveal-on-scroll">
+            <div class="signature-header-content">
+                <h5 class="text-uppercase" style="letter-spacing: 4px; color: #fff; margin-bottom: 10px;">Freshly Crafted</h5>
+                
+                <h2 class="display-4 glow-text" id="typewriter-title"></h2>
+                
+                <p class="mt-3 text-white" style="font-style: italic; opacity: 0.9;">" You pick the best, we serve the rest "</p>
+            </div>
+        </div>
+             
+        <div class="container">
+            
+            <div class="text-center mb-5 reveal-on-scroll">
+                <button class="btn filter-btn active" onclick="filterMenu('all', 'food-item')">ALL</button>
+                <button class="btn filter-btn" onclick="filterMenu('breakfast', 'food-item')">BREAKFAST</button>
+                <button class="btn filter-btn" onclick="filterMenu('snacks', 'food-item')">SNACKS</button>
+                <button class="btn filter-btn" onclick="filterMenu('wraps', 'food-item')">WRAPS & BURGERS</button>
+                <button class="btn filter-btn" onclick="filterMenu('main', 'food-item')">MAIN COURSE</button>
+                <button class="btn filter-btn" onclick="filterMenu('dessert', 'food-item')">DESSERTS</button>
+            </div>
+
+            <div class="row" id="menuGrid">
+                
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/carbonara.avif" class="menu-img" alt="Spaghetti">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Spaghetti Carbonara</h5>
+                            <p class="small text-muted">Spaghetti carbonara with creamy sauce, and parmesan cheese.</p>
+                            <div class="price-tag">RM 14.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(101, 'Spaghetti Carbonara', 14.00, 'images/carbonara.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/aglioolio.webp" class="menu-img" alt="Spaghetti">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Spaghetti Aglio Olio</h5>
+                            <p class="small text-muted">Authentic spaghetti with rich creamy sauce,beef and parmesan cheese.</p>
+                            <div class="price-tag">RM 14.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(102, 'Spaghetti Aglio Olio', 14.00, 'images/aglioolio.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/beefbolognese.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Spaghetti Bolognese</h5>
+                            <p class="small text-muted">Authentic spaghetti with rich meat sauce and parmesan cheese.</p>
+                            <div class="price-tag">RM 16.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(103, 'Spaghetti Bolognese', 16.00, 'images/beefbolognese.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/macncheese.webp" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Mac and Cheese</h5>
+                            <p class="small text-muted">Creamy mac and cheese with a crispy breadcrumb topping.</p>
+                            <div class="price-tag">RM 15.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(104, 'Mac and Cheese', 15.00, 'images/macncheese.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/pesto.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Pesto Cream w/ Chicken</h5>
+                            <p class="small text-muted">A pesto cream with grilled chicken and parmesan cheese.</p>
+                            <div class="price-tag">RM 19.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(105, 'Pesto Cream w/ Chicken', 19.00, 'images/pesto.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/fettucine.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Creamy Mushroom Fettuccine</h5>
+                            <p class="small text-muted">Creamy mushroom fettuccine with a hint of parmesan cheese.</p>
+                            <div class="price-tag">RM 18.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(106, 'Mushroom Fettuccine', 18.00, 'images/fettucine.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/meatballmarinara.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Meatball Marinara</h5>
+                            <p class="small text-muted">Large, juicy meatballs simmered in a thick tomato sauce, served over a bed of pasta.</p>
+                            <div class="price-tag">RM 15.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(107, 'Meatball Marinara', 15.00, 'images/meatballmarinara.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/seafoodmarinara.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Seafood Marinara</h5>
+                            <p class="small text-muted">A tomato-based pasta featuring prawns, squid, and mussels.</p>
+                            <div class="price-tag">RM 18.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(108, 'Seafood Marinara', 18.00, 'images/seafoodmarinara.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/lasagna.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Lasagna</h5>
+                            <p class="small text-muted">Layered pasta with rich meat sauce and melted cheese.</p>
+                            <div class="price-tag">RM 13.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(109, 'Lasagna', 13.00, 'images/lasagna.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/tomyam.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Creamy Tom Yum Pasta</h5>
+                            <p class="small text-muted">A fusion of Thai flavors and Italian pasta spicy, sour, and creamy all at once.</p>
+                            <div class="price-tag">RM 12.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(110, 'Creamy Tom Yum Pasta', 12.00, 'images/tomyam.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/miso.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Japanese Miso Butter Pasta</h5>
+                            <p class="small text-muted">An umami-rich option using miso paste, butter, and often topped with seaweed and salmon.</p>
+                            <div class="price-tag">RM 14.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(111, 'Miso Butter Pasta', 14.00, 'images/miso.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="main">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/pinkpasta.jpg" class="menu-img" alt="Pasta">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Pink Sauce Rose Pasta</h5>
+                            <p class="small text-muted">A mix of tomato and cream sauces, giving you a beautiful orange/pink color and a balanced flavor.</p>
+                            <div class="price-tag">RM 15.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(112, 'Pink Sauce Rose Pasta', 15.00, 'images/pinkpasta.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=500" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Burnt Cheesecake</h5>
+                            <p class="small text-muted">Our signature creamy Basque burnt cheesecake with a caramelized top.</p>
+                            <div class="price-tag">RM 14.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(113, 'Burnt Cheesecake', 14.00, 'images/cheesecake.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/peach.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Peach Strudel</h5>
+                            <p class="small text-muted">Features layers of flaky pastry, fresh peaches, and thick cream.</p>
+                            <div class="price-tag">RM 11.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(114, 'Peach Strudel', 11.00, 'images/peach.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/croffle.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Croffle</h5>
+                            <p class="small text-muted">A croissant and waffle hybrid, filled with fresh berries and whipped cream.</p>
+                            <div class="price-tag">RM 10.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(115, 'Croffle', 10.00, 'images/croffle.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/bomboloni.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Bomboloni</h5>
+                            <p class="small text-muted">A traditional Italian pastry filled with custard and dusted with powdered sugar.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(116, 'Bomboloni', 7.00, 'images/bomboloni.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/cruffins.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Cruffins</h5>
+                            <p class="small text-muted">A cross between a cruffin and a muffin, filled with fresh berries and topped with a streusel.</p>
+                            <div class="price-tag">RM 9.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(117, 'Cruffins', 9.00, 'images/cruffins.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/kekpandan.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Pandan Gula Melaka Cakes</h5>
+                            <p class="small text-muted">Green pandan sponge layered with gula melaka,syrup and topped with shredded coconut.</p>
+                            <div class="price-tag">RM 9.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(118, 'Pandan Gula Melaka', 9.00, 'images/kekpandan.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/millecrepe.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Mille Crepe Cakes</h5>
+                            <p class="small text-muted">Many layers of thin crepes with cream in between.</p>
+                            <div class="price-tag">RM 12.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(119, 'Mille Crepe Cakes', 12.00, 'images/millecrepe.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="dessert">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/pavlova.jpg" class="menu-img" alt="Cake">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Pavlova</h5>
+                            <p class="small text-muted">A meringue-based dessert with a crisp shell and soft, light interior, topped with fresh berries and whipped cream.</p>
+                            <div class="price-tag">RM 15.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(120, 'Pavlova', 15.00, 'images/pavlova.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/avocadotoast.avif" class="menu-img" alt="Avocado Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Avocado Toast</h5>
+                            <p class="small text-muted">Fresh avocado on toasted sourdough with a sprinkle of chili flakes.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(121, 'Avocado Toast', 8.00, 'images/avocadotoast.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/peanutbuttertoast.avif" class="menu-img" alt="Peanut Butter Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Peanut Butter Toast</h5>
+                            <p class="small text-muted">Creamy peanut butter on toasted sourdough with a drizzle of honey.</p>
+                            <div class="price-tag">RM 5.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(122, 'Peanut Butter Toast', 5.00, 'images/peanutbuttertoast.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/bananatoast.avif" class="menu-img" alt="Banana Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Banana Toast</h5>
+                            <p class="small text-muted">Sliced banana on toasted sourdough with a drizzle of honey.</p>
+                            <div class="price-tag">RM 5.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(123, 'Banana Toast', 5.00, 'images/bananatoast.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/kayatoast.jpg" class="menu-img" alt="Kaya Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Kaya Toast</h5>
+                            <p class="small text-muted">Kaya spread on toasted bread with a side of soft-boiled egg.</p>
+                            <div class="price-tag">RM 5.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(124, 'Kaya Toast', 5.00, 'images/kayatoast.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/nutellatoast.jpg" class="menu-img" alt="Nutella Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Nutella Toast</h5>
+                            <p class="small text-muted">Nutella spread on toasted bread with strawberry.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(125, 'Nutella Toast', 7.00, 'images/nutellatoast.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/strawberrytoast.webp" class="menu-img" alt="Strawberry Jam Toast">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Strawberry Jam Toast</h5>
+                            <p class="small text-muted">Strawberry jam on toasted bread with extra strawberry jam side.</p>
+                            <div class="price-tag">RM 6.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(126, 'Strawberry Jam Toast', 6.00, 'images/strawberrytoast.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/bluepancakes.avif" class="menu-img" alt="Blueberry Pancakes">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Blueberry Pancakes</h5>
+                            <p class="small text-muted">Fluffy pancakes with fresh blueberries and a drizzle of maple syrup with sliced banana.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(127, 'Blueberry Pancakes', 8.00, 'images/bluepancakes.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/butterpancake.avif" class="menu-img" alt="Butter Pancakes">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Butter Pancakes</h5>
+                            <p class="small text-muted">Fluffy pancakes with a generous amount of butter.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(128, 'Butter Pancakes', 7.00, 'images/butterpancake.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/butterwaffles.avif" class="menu-img" alt="Butter Waffles">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Butter Waffles</h5>
+                            <p class="small text-muted">Crispy waffles with a generous amount of butter.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(129, 'Butter Waffles', 7.00, 'images/butterwaffles.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/bluewaffles.avif" class="menu-img" alt="Blueberry Waffles">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Blueberry Waffles</h5>
+                            <p class="small text-muted">Crispy waffles with fresh blueberries and a drizzle of maple syrup.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(130, 'Blueberry Waffles', 8.00, 'images/bluewaffles.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/redwaffles.avif" class="menu-img" alt="Redberry Waffles">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Redberry Waffles</h5>
+                            <p class="small text-muted">Crispy waffles with fresh redberries and a drizzle of maple syrup.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(131, 'Redberry Waffles', 8.00, 'images/redwaffles.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="breakfast">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/chocwaffles.avif" class="menu-img" alt="Chocolate Waffles">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Chocolate Waffles</h5>
+                            <p class="small text-muted">Crispy waffles with a generous amount of chocolate sauce with a scoop of vanilla ice cream.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(132, 'Chocolate Waffles', 8.00, 'images/chocwaffles.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/fries.avif" class="menu-img" alt="French Fries">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">French Fries</h5>
+                            <p class="small text-muted">Crispy french fries with a generous amount of salt with a side of chili sauce.</p>
+                            <div class="price-tag">RM 5.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(133, 'French Fries', 5.00, 'images/fries.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/onionrings.jpg" class="menu-img" alt="Onion Rings">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Onion Rings</h5>
+                            <p class="small text-muted">Crispy onion rings with a generous amount of salt with a side of chili sauce.</p>
+                            <div class="price-tag">RM 5.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(134, 'Onion Rings', 5.00, 'images/onionrings.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/potatowedges1.webp" class="menu-img" alt="Potato Wedges">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Potato Wedges</h5>
+                            <p class="small text-muted">Crispy potato wedges with a generous amount of salt with a side of chili sauce.</p>
+                            <div class="price-tag">RM 6.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(135, 'Potato Wedges', 6.00, 'images/potatowedges1.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/cheesepotato.webp" class="menu-img" alt="Cheese Potato Wedges">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Cheese Potato Wedges</h5>
+                            <p class="small text-muted">Crispy cheese potato wedges with a generous amount of cheese and mayonaise.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(136, 'Cheese Potato Wedges', 7.00, 'images/cheesepotato.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/chickenpopcorn.png" class="menu-img" alt="Chicken Popcorn">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Chicken Popcorn</h5>
+                            <p class="small text-muted">Crispy chicken popcorn with a side of chili sauce.</p>
+                            <div class="price-tag">RM 9.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(137, 'Chicken Popcorn', 9.00, 'images/chickenpopcorn.png', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/buffalowings.avif" class="menu-img" alt="Buffalo Wings">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Buffalo Wings</h5>
+                            <p class="small text-muted">Crispy buffalo wings with a side of buffalo hot sauce.</p>
+                            <div class="price-tag">RM 10.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(138, 'Buffalo Wings', 10.00, 'images/buffalowings.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="snacks">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/calamarirings.jpg" class="menu-img" alt="Calamari Rings">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Calamari Rings</h5>
+                            <p class="small text-muted">Crispy calamari rings with a side of chili sauce.</p>
+                            <div class="price-tag">RM 9.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(139, 'Calamari Rings', 9.00, 'images/calamarirings.jpg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/grilledcheese.webp" class="menu-img" alt="Grilled Cheese">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Grilled Cheese Sandwich</h5>
+                            <p class="small text-muted">Crispy grilled cheese sandwich with a side of chili sauce.</p>
+                            <div class="price-tag">RM 6.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(140, 'Grilled Cheese Sandwich', 6.00, 'images/grilledcheese.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/clubsandwich.avif" class="menu-img" alt="Club Sandwich">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Club Sandwich</h5>
+                            <p class="small text-muted">Crispy club sandwich with generous of mayonaise.</p>
+                            <div class="price-tag">RM 6.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(141, 'Club Sandwich', 6.00, 'images/clubsandwich.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/chickensandwich.avif" class="menu-img" alt="Chicken Sandwich">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Chicken Sandwich</h5>
+                            <p class="small text-muted">Crispy chicken sandwich with a side of chili sauce.</p>
+                            <div class="price-tag">RM 7.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(142, 'Chicken Sandwich', 7.00, 'images/chickensandwich.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/beefsandwich.avif" class="menu-img" alt="Beef Sandwich">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Beef Sandwich</h5>
+                            <p class="small text-muted">Crispy beef sandwich with a side of chili sauce.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(143, 'Beef Sandwich', 8.00, 'images/beefsandwich.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/chickenwraps.avif" class="menu-img" alt="Chicken Wraps">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Chicken Wraps</h5>
+                            <p class="small text-muted">Crispy chicken wraps with a side of chili sauce.</p>
+                            <div class="price-tag">RM 9.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(144, 'Chicken Wraps', 9.00, 'images/chickenwraps.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/beefwraps.webp" class="menu-img" alt="Beef Wraps">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Beef Wraps</h5>
+                            <p class="small text-muted">Crispy beef wraps with a side of chili sauce.</p>
+                            <div class="price-tag">RM 10.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(145, 'Beef Wraps', 10.00, 'images/beefwraps.webp', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/falafelwraps.jpeg" class="menu-img" alt="Falafel Wraps">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Falafel Wraps</h5>
+                            <p class="small text-muted">Crispy falafel wraps with a side of chili sauce.</p>
+                            <div class="price-tag">RM 11.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(146, 'Falafel Wraps', 11.00, 'images/falafelwraps.jpeg', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 food-item mb-4 reveal-on-scroll" data-category="wraps">
+                    <div class="card menu-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+                        <img src="images/burritos.avif" class="menu-img" alt="Breakfast Burritos">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title">Breakfast Burritos</h5>
+                            <p class="small text-muted">Crispy breakfast burritos with a side of chili sauce.</p>
+                            <div class="price-tag">RM 8.00</div>
+                            <button class="btn-add-cart" onclick="addToCart(147, 'Breakfast Burritos', 8.00, 'images/burritos.avif', this)">
+                                ADD TO TRAY <i class="fas fa-plus-circle ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="floatingCart" onclick="toggleCart()">
+        <div class="cart-icon-container">
+            <i class="fas fa-shopping-basket"></i>
+            <span id="cartCounter" class="badge-counter">0</span>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="sideCart" aria-labelledby="sideCartLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sideCartLabel"><i class="fas fa-utensils me-2"></i> YOUR TRAY</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            
+            <div id="sideCartItems" class="flex-grow-1" style="overflow-y: auto;">
+                <div class="text-center mt-5 text-light" style="opacity:0.7;">
+                    <i class="fas fa-shopping-basket fa-3x mb-3"></i>
+                    <p>Your tray is empty.</p>
+                </div>
+            </div>
+
+            <div class="mt-3 border-top pt-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold text-white">Total Estimate:</span> <span class="fw-bold fs-4 text-white" id="sideCartTotal">RM 0.00</span> </div>
+                
+                <a href="cart.html" class="btn-modern-checkout">
+                    SEE THE ALL CART <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background-color: #000000; padding: 60px 0; border-top: 5px solid var(--klnc-gold); margin-top: 80px;">
+        <div class="container text-center">
+            
+            <img src="images/knlc_logo.jpeg" alt="KNLC Logo" style="height: 90px; width: 90px; object-fit: contain; border-radius: 50%; border: 3px solid var(--klnc-gold); margin-bottom: 25px; padding: 3px; background: white;">
+            
+            <h3 style="font-family: 'Playfair Display', serif; font-weight: 800; color: white; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; 
+                text-shadow: 2px 2px 0px var(--klnc-gold), -1px -1px 0 var(--klnc-gold), 1px -1px 0 var(--klnc-gold), -1px 1px 0 var(--klnc-gold), 1px 1px 0 var(--klnc-gold);">
+                KNLC KITCHEN & PATISSERIE
+            </h3>
+            
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 1.1rem; margin-bottom: 5px;">
+                Elegance in Every Bite. Excellence in Every Sip.
+            </p>
+            
+            <div style="width: 50px; height: 3px; background: var(--klnc-gold); margin: 20px auto;"></div>
+            
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 0.9rem; opacity: 0.8;">
+                &copy; 2026 KNLC Kitchen. All Corporate Rights Reserved.<br>
+                Lavender Height Business Park 70450 Seremban, Negeri Sembilan.<br>
+                Open Every Day • Closed Tuesdays | Operation: 10:30 AM - 10:30 PM
+            </p>
+            
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+
+        let cart = JSON.parse(localStorage.getItem('klncCart')) || [];
+        updateCartCounter();
+
+
+        const textElement = document.getElementById('typewriter-title');
+        const textToType = "OUR SIGNATURE MENU";
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                textElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else {
+                textElement.style.borderRight = "none";
+            }
+        }
+        
+        window.onload = function() {
+            typeWriter();
+            reveal();
+        };
+
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal-on-scroll');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('reveal-visible');
+                }
+            }
+        }
+
+        function tiltCard(event, card) {
+            const width = card.offsetWidth;
+            const height = card.offsetHeight;
+            const centerX = card.offsetLeft + width / 2;
+            const centerY = card.offsetTop + height / 2;
+            const mouseX = event.clientX - centerX;
+            const mouseY = event.clientY - centerY;
+            const rotateX = ((-1)*mouseY / (height / 2)) * 10;
+            const rotateY = (mouseX / (width / 2)) * 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        }
+
+        function resetTilt(card) {
+            card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+        }
+
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) { ripple.remove(); }
+
+            button.appendChild(circle);
+        }
+
+        function addToCart(id, name, price, img, btnElement) {
+            createRipple(event);
+
+            let originalText = btnElement.innerHTML;
+            btnElement.innerHTML = '<i class="fas fa-check"></i> ADDED!';
+            btnElement.style.backgroundColor = "#F5C645"; 
+            btnElement.style.color = "#2E5834";
+            btnElement.style.borderColor = "#F5C645";
+
+            setTimeout(() => {
+                btnElement.innerHTML = originalText;
+                btnElement.style.backgroundColor = "#2E5834";
+                btnElement.style.color = "#F5C645";
+                btnElement.style.borderColor = "#2E5834";
+            }, 800);
+
+            let existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ id, name, price, img, qty: 1 });
+            }
+
+            saveCart();
+            updateCartCounter();
+            
+            let cartIcon = document.getElementById('floatingCart');
+            cartIcon.style.animation = "none";
+            cartIcon.offsetHeight; 
+            cartIcon.style.animation = "shake 0.5s";
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes shake {
+                0% { transform: rotate(0deg); }
+                25% { transform: rotate(15deg); }
+                50% { transform: rotate(0deg); }
+                75% { transform: rotate(-15deg); }
+                100% { transform: rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        function saveCart() {
+            localStorage.setItem('klncCart', JSON.stringify(cart));
+            renderSideCart(); 
+        }
+
+        function updateCartCounter() {
+            let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            let badge = document.getElementById('cartCounter');
+            badge.innerText = totalQty;
+            badge.style.transform = "scale(1.5)";
+            setTimeout(() => badge.style.transform = "scale(1)", 200);
+        }
+
+        function toggleCart() {
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('sideCart'));
+            myOffcanvas.toggle();
+            renderSideCart();
+        }
+
+        function renderSideCart() {
+            let container = document.getElementById('sideCartItems');
+            let totalElement = document.getElementById('sideCartTotal');
+            container.innerHTML = '';
+            
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center mt-5 text-light" style="opacity:0.7;">
+                        <i class="fas fa-shopping-basket fa-3x mb-3"></i>
+                        <p>Your tray is empty.</p>
+                    </div>`;
+            } else {
+                cart.forEach(item => {
+                    total += item.price * item.qty;
+                    container.innerHTML += `
+                        <div class="cart-item-row">
+                            <div class="d-flex align-items-center">
+                                <div style="line-height:1.2;">
+                                    <div class="fw-bold text-warning" style="font-size:0.9rem;">${item.name}</div>
+                                    <small class="text-white">RM ${item.price.toFixed(2)} x ${item.qty}</small>
+                                </div>
+                            </div>
+                            <div>
+                                <strong class="text-warning me-2">RM ${(item.price * item.qty).toFixed(2)}</strong>
+                                <button class="cart-action-btn" onclick="removeFromSideCart(${item.id})">&times;</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            totalElement.innerText = 'RM ' + total.toFixed(2);
+        }
+
+        function removeFromSideCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            updateCartCounter();
+        }
+
+        function filterMenu(category, itemClass) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let items = document.getElementsByClassName(itemClass);
+            for (let i = 0; i < items.length; i++) {
+                let itemCategory = items[i].getAttribute('data-category');
+                
+                if (category === 'all' || itemCategory === category) {
+                    items[i].style.display = "block";
+                    setTimeout(() => items[i].style.opacity = "1", 50);
+                } else {
+                    items[i].style.opacity = "0";
+                    setTimeout(() => items[i].style.display = "none", 300);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

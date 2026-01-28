@@ -1,0 +1,280 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Queue | KNLC Kitchen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --klnc-green: #2E5834;
+            --klnc-gold: #F5C645;
+            --klnc-soft: #fafafa;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--klnc-green);
+            color: var(--klnc-soft);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; color: var(--klnc-gold); }
+
+        .signature-header-box {
+            position: relative;
+            background: linear-gradient(135deg, var(--klnc-green) 0%, #0d1f12 100%);
+            padding: 30px 20px; text-align: center;
+            border-top: 4px solid var(--klnc-gold); border-bottom: 4px solid var(--klnc-gold);
+            width: 100%; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin-bottom: 40px;
+        }
+        .signature-header-box::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%);
+            animation: rotate-glow 10s linear infinite; z-index: 1; pointer-events: none;
+        }
+        .signature-header-content { position: relative; z-index: 2; }
+        @keyframes rotate-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .glow-text {
+            color: var(--klnc-gold) !important;
+            text-shadow: 0 0 15px rgba(245, 198, 69, 0.9);
+            letter-spacing: 2px;
+        }
+
+        .navbar {
+            background: rgba(46, 88, 52, 0.98) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--klnc-gold);
+            padding: 10px 0;
+        }
+        .navbar-brand img { height: 70px; border-radius: 50%; border: 2px solid var(--klnc-gold); margin-right: 15px; }
+        .brand-text {
+            font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.3rem;
+            color: #ffffff; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 0px var(--klnc-gold); vertical-align: middle; margin-right: 20px;
+        }
+        .nav-link { font-weight: 700; color: var(--klnc-gold) !important; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; }
+        .nav-link:hover { color: #fff !important; text-shadow: 0 0 10px var(--klnc-gold); }
+
+        .queue-card {
+            background: #ffffff; border-radius: 20px; padding: 40px;
+            text-align: center; color: #333; position: relative; overflow: hidden;
+            border: 4px solid var(--klnc-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .queue-circle {
+            width: 160px; height: 160px; background: var(--klnc-green);
+            border-radius: 50%; border: 5px solid var(--klnc-gold);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            margin: 0 auto 25px; animation: pulse-gold 2s infinite;
+        }
+        .queue-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--klnc-gold); font-weight: 700; }
+        .queue-number { font-size: 4rem; font-weight: 800; color: white; line-height: 1; font-family: 'Playfair Display', serif; }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(245, 198, 69, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(245, 198, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 198, 69, 0); }
+        }
+
+        .receipt-box {
+            background: #f8f9fa; border: 2px dashed #ccc; border-radius: 10px;
+            padding: 20px; margin-top: 20px; font-family: 'Courier New', Courier, monospace;
+            text-align: left; position: relative;
+        }
+        .receipt-box::before {
+            content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 10px;
+            background: radial-gradient(circle, transparent 0.25rem, #f8f9fa 0.25rem);
+            background-size: 0.5rem 0.5rem; 
+        }
+        .receipt-header { text-align: center; border-bottom: 2px dashed #999; padding-bottom: 10px; margin-bottom: 15px; }
+        .receipt-item { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 5px; }
+        .receipt-total { border-top: 2px dashed #999; padding-top: 10px; margin-top: 10px; font-weight: bold; font-size: 1.1rem; display: flex; justify-content: space-between; }
+
+        .email-section {
+            background: rgba(46, 88, 52, 0.1); border-radius: 15px; padding: 20px;
+            margin-top: 30px; border: 1px solid var(--klnc-green);
+        }
+        .btn-send { background: var(--klnc-green); color: white; border: none; font-weight: bold; }
+        .btn-send:hover { background: var(--klnc-gold); color: var(--klnc-green); }
+
+        footer { background-color: #000000; padding: 60px 0; border-top: 5px solid var(--klnc-gold); margin-top: 80px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/knlc_logo.jpeg" alt="KLNC Logo">
+                <span class="brand-text d-none d-lg-block">KNLC KITCHEN & PATISSERIE</span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link mx-2" href="index.html">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="food.html">FOOD</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="drinks.html">DRINKS</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="contact.html">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5" style="margin-top: 100px;"> 
+        <div class="signature-header-box animate__animated animate__fadeInDown">
+            <div class="signature-header-content">
+                <h5 class="text-uppercase" style="letter-spacing: 4px; color: #fff; margin-bottom: 10px;">Order Success</h5>
+                <h2 class="display-4 glow-text">YOU'RE IN QUEUE</h2>
+                <p class="mt-3 text-white" style="font-style: italic; opacity: 0.9;">"Sit tight, your cravings are being prepared."</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    
+                    <div class="queue-card animate__animated animate__zoomIn">
+                        <div class="mb-4">
+                            <i class="fas fa-check-circle text-success fa-3x mb-2"></i>
+                            <h3 class="fw-bold" style="color: var(--klnc-green);">PAYMENT SUCCESSFUL</h3>
+                            <p class="text-muted">Thank you, <span id="custNameDisplay" class="fw-bold text-dark">Guest</span></p>
+                        </div>
+
+                        <div class="queue-circle">
+                            <span class="queue-label">QUEUE NO</span>
+                            <span class="queue-number" id="queueNumberDisplay">--</span>
+                        </div>
+                        <p class="text-danger small fw-bold"><i class="fas fa-bell me-2"></i>Please wait for your number to be called.</p>
+
+                        <div class="receipt-box">
+                            <div class="receipt-header">
+                                <h5 class="fw-bold m-0">KNLC KITCHEN & PATISSERIE</h5>
+                                <small>ORDER ID: <span id="orderIDDisplay">---</span></small><br>
+                                <small id="orderTimeDisplay">Date: --/--/----</small>
+                            </div>
+                            
+                            <div id="receiptItemsList">
+                                </div>
+
+                            <div class="receipt-total">
+                                <span>TOTAL PAID</span>
+                                <span id="totalPaidDisplay">RM 0.00</span>
+                            </div>
+                            <div class="text-center mt-3">
+                                <small class="text-muted">Status: <span class="badge bg-success">PAID</span></small>
+                            </div>
+                        </div>
+
+                        <div class="email-section">
+                            <label class="form-label fw-bold text-start w-100" style="color: var(--klnc-green);">
+                                <i class="fas fa-envelope-open-text me-2"></i>Get Digital Receipt
+                            </label>
+                            <div class="input-group">
+                                <input type="email" id="emailInput" class="form-control" placeholder="Enter your email address">
+                                <button class="btn btn-send" type="button" onclick="sendEmailReceipt()">
+                                    SEND <i class="fas fa-paper-plane ms-2"></i>
+                                </button>
+                            </div>
+                            <small class="text-muted d-block text-start mt-2">We will send a copy of this receipt to your inbox.</small>
+                        </div>
+
+                        <a href="index.html" class="btn btn-outline-dark rounded-pill mt-4 px-5 fw-bold" onclick="clearSession()">
+                            ORDER AGAIN / HOME
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <img src="images/knlc_logo.jpeg" alt="KNLC Logo" style="height: 90px; width: 90px; object-fit: contain; border-radius: 50%; border: 3px solid var(--klnc-gold); margin-bottom: 25px; padding: 3px; background: white;">
+            <h3 style="font-family: 'Playfair Display', serif; font-weight: 800; color: white; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; text-shadow: 2px 2px 0px var(--klnc-gold);">KNLC KITCHEN & PATISSERIE</h3>
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 1.1rem; margin-bottom: 5px;">Elegance in Every Bite. Excellence in Every Sip.</p>
+            <div style="width: 50px; height: 3px; background: var(--klnc-gold); margin: 20px auto;"></div>
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 0.9rem; opacity: 0.8;">&copy; 2026 KNLC Kitchen. All Corporate Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        window.onload = function() {
+            let custName = localStorage.getItem('klncCustName') || 'Valued Guest';
+            let orderID = localStorage.getItem('klncOrderID') || 'KNLC-0000';
+            let orderTime = localStorage.getItem('klncOrderTime') || new Date().toLocaleTimeString();
+            let cart = JSON.parse(localStorage.getItem('klncCart')) || [];
+            let grandTotal = localStorage.getItem('klncGrandTotal') || '0.00';
+
+            let queueNo = Math.floor(Math.random() * 50) + 1;
+
+            document.getElementById('custNameDisplay').innerText = custName;
+            document.getElementById('queueNumberDisplay').innerText = queueNo;
+            document.getElementById('orderIDDisplay').innerText = orderID;
+            document.getElementById('orderTimeDisplay').innerText = new Date().toLocaleDateString() + ' ' + orderTime;
+            document.getElementById('totalPaidDisplay').innerText = 'RM ' + grandTotal;
+
+            let listContainer = document.getElementById('receiptItemsList');
+            if (cart.length > 0) {
+                cart.forEach(item => {
+                    listContainer.innerHTML += `
+                        <div class="receipt-item">
+                            <span>${item.qty}x ${item.name}</span>
+                            <span>RM ${(item.price * item.qty).toFixed(2)}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                listContainer.innerHTML = '<div class="text-center text-muted small">- No items found -</div>';
+            }
+        };
+
+        function sendEmailReceipt() {
+            let email = document.getElementById('emailInput').value;
+
+            if (!email.includes('@') || !email.includes('.')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email address.',
+                    confirmButtonColor: '#2E5834'
+                });
+                return;
+            }
+
+            let btn = document.querySelector('.btn-send');
+            let originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                document.getElementById('emailInput').value = ''; 
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Receipt Sent!',
+                    text: 'A digital receipt has been sent to ' + email,
+                    confirmButtonColor: '#2E5834'
+                });
+            }, 2000);
+        }
+
+        function clearSession() {
+            // Optional: Clear cart but keep history if needed
+            // localStorage.removeItem('klncCart');
+        }
+    </script>
+</body>
+</html>

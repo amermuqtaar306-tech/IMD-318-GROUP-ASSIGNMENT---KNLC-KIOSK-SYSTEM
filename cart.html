@@ -1,0 +1,385 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Tray | KNLC Kitchen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --klnc-green: #2E5834;  
+            --klnc-gold: #F5C645;  
+            --klnc-soft: #fafafa;   
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--klnc-green);
+            color: var(--klnc-soft);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--klnc-gold);
+        }
+
+        .glow-text {
+            color: var(--klnc-gold) !important;
+            text-shadow: 0 0 15px rgba(245, 198, 69, 0.9), 0 0 30px rgba(245, 198, 69, 0.6);
+            letter-spacing: 2px;
+            border-right: 3px solid var(--klnc-gold);
+            padding-right: 5px;
+            display: inline-block;
+        }
+
+        .signature-header-box {
+            position: relative;
+            background: linear-gradient(135deg, var(--klnc-green) 0%, #0d1f12 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 4px solid var(--klnc-gold);
+            border-bottom: 4px solid var(--klnc-gold);
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            margin-bottom: 60px;
+        }
+
+        .signature-header-box::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%);
+            animation: rotate-glow 10s linear infinite;
+            z-index: 1; pointer-events: none;
+        }
+
+        .signature-header-content { position: relative; z-index: 2; }
+
+        @keyframes rotate-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .navbar {
+            background: rgba(46, 88, 52, 0.98) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--klnc-gold);
+            padding: 10px 0;
+        }
+
+        .navbar-brand img {
+            height: 70px; border-radius: 50%; border: 2px solid var(--klnc-gold);
+            transition: transform 0.5s ease; margin-right: 15px;
+        }
+        .navbar-brand img:hover { transform: rotate(360deg); }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.3rem;
+            color: #ffffff; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 0px var(--klnc-gold); vertical-align: middle; margin-right: 20px;
+        }
+
+        .nav-link {
+            font-weight: 700; color: var(--klnc-gold) !important;
+            font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;
+        }
+        .nav-link:hover { color: #fff !important; text-shadow: 0 0 10px var(--klnc-gold); }
+
+        .btn-nav-cart {
+            background: var(--klnc-gold); color: var(--klnc-green) !important;
+            border-radius: 50px; padding: 6px 18px !important;
+            font-weight: 800; font-size: 0.75rem;
+            box-shadow: 0 0 10px rgba(245, 198, 69, 0.3);
+            border: 2px solid var(--klnc-gold);
+            transition: 0.3s; display: inline-flex; align-items: center; white-space: nowrap;
+        }
+        .btn-nav-cart:hover {
+            background: transparent; color: var(--klnc-gold) !important;
+            box-shadow: 0 0 20px rgba(245, 198, 69, 0.6); transform: translateY(-2px);
+        }
+
+        .cart-item-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border-left: 8px solid var(--klnc-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        
+        .cart-item-card:hover { transform: scale(1.02); }
+
+        .item-thumb {
+            width: 80px; height: 80px; border-radius: 15px; object-fit: cover;
+            border: 2px solid var(--klnc-green); margin-right: 20px;
+        }
+
+        .item-details h4 {
+            margin: 0; color: var(--klnc-green); font-weight: 800; font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .item-details small { color: #666; letter-spacing: 1px; font-size: 0.8rem; }
+
+        .qty-box {
+            background: var(--klnc-green); border-radius: 50px; padding: 5px 15px;
+            display: flex; align-items: center; box-shadow: 0 5px 15px rgba(46,88,52,0.3);
+        }
+        .qty-btn {
+            background: none; border: none; color: var(--klnc-gold); font-size: 1.2rem; font-weight: bold; cursor: pointer;
+        }
+        .qty-value { margin: 0 15px; font-weight: 600; font-size: 1.1rem; color: white; }
+
+        .btn-trash {
+            width: 40px; height: 40px; border-radius: 50%; background: #ffebeb; color: #ff4d4d;
+            display: flex; align-items: center; justify-content: center; font-size: 1rem;
+            cursor: pointer; transition: 0.3s; margin-left: 20px;
+        }
+        .btn-trash:hover { background: #ff4d4d; color: white; transform: rotate(90deg); }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--klnc-gold);
+            border-radius: 25px; padding: 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            position: sticky; top: 120px;
+            color: white;
+        }
+
+        .summary-title {
+            color: var(--klnc-gold); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            border-bottom: 1px dashed rgba(255,255,255,0.3); padding-bottom: 15px; margin-bottom: 25px;
+        }
+
+        .price-row {
+            display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1rem; opacity: 0.9;
+        }
+        
+        .total-row {
+            font-size: 1.5rem; font-weight: 800; color: var(--klnc-gold); 
+            margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-pay {
+            background: var(--klnc-gold); color: var(--klnc-green); width: 100%; padding: 15px;
+            border-radius: 50px; font-weight: 900; font-size: 1.1rem; border: none; margin-top: 25px;
+            text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 20px rgba(245, 198, 69, 0.4);
+            transition: all 0.3s; animation: pulse-gold 2s infinite;
+        }
+        .btn-pay:hover {
+            transform: translateY(-3px); background: white; color: var(--klnc-green);
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(245, 198, 69, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(245, 198, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 198, 69, 0); }
+        }
+
+        footer {
+            background-color: #000000; padding: 60px 0; border-top: 5px solid var(--klnc-gold); margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/knlc_logo.jpeg" alt="KLNC Logo">
+                <span class="brand-text d-none d-lg-block">KNLC KITCHEN & PATISSERIE</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="background-color: var(--klnc-gold); border-radius: 5px;"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="index.html">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="food.html">FOOD</a></li>
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="drinks.html">DRINKS</a></li>
+                    <li class="nav-item"><a class="nav-link mx-1 px-2" href="promotion.html">PROMOTION</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="nav-link btn-nav-cart active" href="cart.html">
+                            <i class="fas fa-receipt me-2"></i>REVIEW TRAY & PAY
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5" style="margin-top: 100px;"> 
+        <div class="signature-header-box reveal-on-scroll">
+            <div class="signature-header-content">
+                <h5 class="text-uppercase" style="letter-spacing: 4px; color: #fff; margin-bottom: 10px;">Review Order</h5>
+                <h2 class="display-4 glow-text" id="typewriter-title"></h2>
+                <p class="mt-3 text-white" style="font-style: italic; opacity: 0.9;">" You pick the best, we serve the rest "</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" id="cartContainer">
+                    </div>
+
+                <div class="col-lg-4">
+                    <div class="summary-card animate__animated animate__fadeInRight">
+                        <h4 class="summary-title"><i class="fas fa-file-invoice-dollar me-2"></i> Payment Summary</h4>
+                        
+                        <div class="price-row">
+                            <span>Subtotal</span>
+                            <span class="fw-bold" id="subtotalVal">RM 0.00</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Service Tax (6%)</span>
+                            <span class="fw-bold" id="taxVal">RM 0.00</span>
+                        </div>
+
+                        <div class="total-row d-flex justify-content-between">
+                            <span>TOTAL</span>
+                            <span id="totalVal">RM 0.00</span>
+                        </div>
+
+                        <p class="text-center mt-4 text-white-50 fst-italic small">*Please double check your tray before payment.</p>
+
+                        <button onclick="goToPayment()" class="btn-pay">
+                            LOCK ORDER & PAY <i class="fas fa-lock ms-2"></i>
+                        </button>
+                        
+                        <a href="food.html" class="btn btn-outline-light w-100 rounded-pill mt-3 fw-bold py-2" style="border: 2px solid var(--klnc-gold); color: var(--klnc-gold);">
+                            ADD MORE DELIGHTS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <img src="images/knlc_logo.jpeg" alt="KNLC Logo" style="height: 90px; width: 90px; object-fit: contain; border-radius: 50%; border: 3px solid var(--klnc-gold); margin-bottom: 25px; padding: 3px; background: white;">
+            <h3 style="font-family: 'Playfair Display', serif; font-weight: 800; color: white; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; text-shadow: 2px 2px 0px var(--klnc-gold);">KNLC KITCHEN & PATISSERIE</h3>
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 1.1rem; margin-bottom: 5px;">Elegance in Every Bite. Excellence in Every Sip.</p>
+            <div style="width: 50px; height: 3px; background: var(--klnc-gold); margin: 20px auto;"></div>
+            <p style="font-family: 'Poppins', sans-serif; color: white; font-size: 0.9rem; opacity: 0.8;">&copy; 2026 KNLC Kitchen. All Corporate Rights Reserved.<br>Lavender Height Business Park 70450 Seremban, Negeri Sembilan.<br>Open Every Day • Closed Tuesdays | Operation: 10:30 AM - 10:30 PM</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('klncCart')) || [];
+        
+        renderCart();
+
+        const textElement = document.getElementById('typewriter-title');
+        const textToType = "CONFIRM YOUR CRAVINGS ?";
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                textElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else { textElement.style.borderRight = "none"; }
+        }
+        window.onload = function() { typeWriter(); };
+
+        function renderCart() {
+            let container = document.getElementById('cartContainer');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5 animate__animated animate__fadeIn" style="background: rgba(255,255,255,0.1); border-radius: 20px; color: white;">
+                        <i class="fas fa-shopping-basket fa-4x text-warning mb-3"></i>
+                        <h3 class="fw-bold">YOUR TRAY IS EMPTY</h3>
+                        <p class="text-white-50">Go add some happiness now.</p>
+                        <a href="food.html" class="btn btn-warning rounded-pill mt-3 px-4 fw-bold">BROWSE MENU</a>
+                    </div>
+                `;
+                document.querySelector('.btn-pay').classList.add('disabled');
+            } else {
+                document.querySelector('.btn-pay').classList.remove('disabled');
+                
+                cart.forEach((item, index) => {
+                    let totalItemPrice = item.price * item.qty;
+                    
+                    container.innerHTML += `
+                        <div class="cart-item-card animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.1}s">
+                            <div class="d-flex align-items-center flex-grow-1">
+                                <img src="${item.img}" class="item-thumb" onerror="this.src='https://placehold.co/100x100?text=Food'">
+                                <div class="item-details">
+                                    <h4>${item.name}</h4>
+                                    <small>UNIT PRICE: RM ${item.price.toFixed(2)}</small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mt-3 mt-md-0">
+                                <div class="qty-box">
+                                    <button class="qty-btn" onclick="updateQty(${item.id}, -1)">-</button>
+                                    <span class="qty-value">${item.qty}</span>
+                                    <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+                                </div>
+                                
+                                <div class="ms-4 text-end" style="min-width: 90px;">
+                                    <h5 class="m-0 fw-bold" style="color: var(--klnc-green);">RM ${totalItemPrice.toFixed(2)}</h5>
+                                </div>
+
+                                <div class="btn-trash" onclick="removeItem(${item.id})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            calculateTotal();
+        }
+
+        function updateQty(id, change) {
+            let item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) { removeItem(id); return; }
+            }
+            saveCart(); renderCart();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart(); renderCart();
+        }
+
+        function calculateTotal() {
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let tax = subtotal * 0.06;
+            let total = subtotal + tax;
+
+            document.getElementById('subtotalVal').innerText = 'RM ' + subtotal.toFixed(2);
+            document.getElementById('taxVal').innerText = 'RM ' + tax.toFixed(2);
+            document.getElementById('totalVal').innerText = 'RM ' + total.toFixed(2);
+            
+            localStorage.setItem('klncGrandTotal', total.toFixed(2));
+        }
+
+        function saveCart() {
+            localStorage.setItem('klncCart', JSON.stringify(cart));
+        }
+
+        function goToPayment() {
+            let btn = document.querySelector('.btn-pay');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> PROCESSING...';
+            setTimeout(() => { window.location.href = 'payment.html'; }, 1000);
+        }
+    </script>
+</body>
+</html>
